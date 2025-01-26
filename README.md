@@ -58,7 +58,7 @@ Another way to think about it is that training the model to both segment and cla
 
 The UNet architecture is commonly used in biological image segmentation as a robust architecture that operates with high accuracies on low datasets. It operates by having an encoder progressively reduce the dimensions of the input signal (image) while extracting features and a decoder progressive upsample the dimensions of the feature map to create the desired output, whether that is a segmentation map or a classification output. 
 
-![Unet Image](./unet.ong)
+![Unet Image](./unet.png)
 
 In order to tailor the UNet model to our specific use-case, I’ve decided to add a separate classification branch. It will diverge at the feature map level (lowest level on the image) and upsample the feature map before passing it through a Sigmoid activation function to generate a classification output. Having this extra classification branch means that the loss function will be a combination of both cross-entropy loss for classification and dice-loss for segmentation. The weighting between them can be adjusted with hyperparameters. 
 
