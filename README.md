@@ -58,7 +58,7 @@ Another way to think about it is that training the model to both segment and cla
 
 The UNet architecture is commonly used in biological image segmentation as a robust architecture that operates with high accuracies on low datasets. It operates by having an encoder progressively reduce the dimensions of the input signal (image) while extracting features and a decoder progressive upsample the dimensions of the feature map to create the desired output, whether that is a segmentation map or a classification output. 
 
-![Unet Image](./images/unet.jpg)
+![Unet Image](./unet.ong)
 
 In order to tailor the UNet model to our specific use-case, I’ve decided to add a separate classification branch. It will diverge at the feature map level (lowest level on the image) and upsample the feature map before passing it through a Sigmoid activation function to generate a classification output. Having this extra classification branch means that the loss function will be a combination of both cross-entropy loss for classification and dice-loss for segmentation. The weighting between them can be adjusted with hyperparameters. 
 
@@ -73,5 +73,10 @@ This model will be trained with labeled data and masks.
 
 
 A weighted sampler is also implemented to ensure that classes with smaller numbers of data are sampled just as often as those classes with more data. This is added to address the dataset imbalance. 
+
+## References
+* Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." In Medical image computing and computer-assisted intervention–MICCAI 2015: 18th international conference, Munich, Germany, October 5-9, 2015, proceedings, part III 18, pp. 234-241. Springer International Publishing, 2015.
+* Anichini, F. et al. 2020 Developing the ArchAIDE Application: A digital workflow for identifying, organising and sharing archaeological pottery using automated image recognition, Internet Archaeology 52. https://doi.org/10.11141/ia.52.7
+* D. van Helden, E. Mirkes, I. Tyukin and P. Allison, "The arch-i-scan project: Artificial intelligence and 3d simulation for developing new approaches to roman foodways", Journal of Computer Applications in Archaeology, Aug 2022.
 
 
