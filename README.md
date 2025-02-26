@@ -48,6 +48,51 @@ For dataset size:
 
 Click 'Runtime' -> 'Run all'. 
 
+## Setup (Huggingface) 
+
+Huggingface model: garyzgao/arch-unet-classifier 
+Website Huggingface Link: https://huggingface.co/garyzgao/arch-unet-classifier
+
+##### Step 1: Install the necessary libraries and items
+
+```
+from huggingface_hub import hf_hub_download
+import torch
+from model import UNetTimmWithClassification 
+```
+
+##### Step 2: Download and drag model file into project
+
+```
+model.py
+```
+
+##### Step 3: Load model weights
+
+```
+model_path = hf_hub_download(repo_id="garyzgao/arch-unet-classifier", filename="unet_timm_classification.pth")
+```
+
+##### Step 4: Load model 
+
+```
+model = UNetTimmWithClassification(encoder_name="resnet50", num_classes_cls=9)
+```
+
+##### Step 5: Load model weights and set model to evaluation
+
+```
+model.load_state_dict(torch.load(model_path))
+model.eval()
+```
+
+##### Step 6: Inference. 
+
+```
+#Write inference code
+```
+
+
 ## Model Architecture
 
 For the purpose of classifying pottery sherds, I’ve decided to implement a custom model based on the UNet architecture to both segment and classify the sherds. This is chosen because in a real world setting where the background is noisy, having the ability to recognize the specific shape of the fragment and texture and correlate it to a class makes the model more robust to potential noise and irregularities. More importantly, I believe that the model will make a more accurate prediction if it is able to accurately segment the region of interest from the surrounding content. By using a shared latent space (learned representation/information) for both the segmentation and classification, I’m training the model to be able to extract features that would allow it to be proficient in both objectives. 
